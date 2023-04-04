@@ -32,6 +32,9 @@ class Map(ipyleaflet.Map):
             """Adds a search control to the map.
             Args:
                 kwargs: Keyword arguments to pass to the search control.
+            
+            Returns:
+                ipyleaflet.SearchControl: The search control.
             """
             if "url" not in kwargs:
                 kwargs["url"] = 'https://nominatim.openstreetmap.org/search?format=json&q={s}'
@@ -44,6 +47,9 @@ class Map(ipyleaflet.Map):
             """Adds a draw control to the map.
             Args:
                 kwargs: Keyword arguments to pass to the draw control.
+            
+            Returns:
+                ipyleaflet.DrawControl: Draw control.
             """
             draw_control = ipyleaflet.DrawControl(**kwargs)
 
@@ -89,7 +95,7 @@ class Map(ipyleaflet.Map):
                 kwargs: Keyword arguments to pass to the layers control.
             
             Returns: 
-                ipleaflet.LayersControl: The layers control.
+                ipyleaflet.LayersControl: The layers control.
             """
             layers_control = ipyleaflet.LayersControl(position=position)
             self.add_control(layers_control)
@@ -145,7 +151,7 @@ class Map(ipyleaflet.Map):
                 kwargs: Keyword arguments to pass to the GeoJSON layer.
 
             Returns:
-                ipyleaflet.Geojson: Adds a GeoGSON layer to map. 
+                ipyleaflet.Geojson: Adds a GeoJSON layer to map. 
             """
             import json
 
