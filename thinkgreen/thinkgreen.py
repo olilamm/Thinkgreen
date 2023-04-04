@@ -87,6 +87,9 @@ class Map(ipyleaflet.Map):
             """Adds a layers control to the map.
             Args:
                 kwargs: Keyword arguments to pass to the layers control.
+            
+            Returns: 
+                ipleaflet.LayersControl: The layers control.
             """
             layers_control = ipyleaflet.LayersControl(position=position)
             self.add_control(layers_control)
@@ -95,6 +98,9 @@ class Map(ipyleaflet.Map):
             """Adds a fullscreen control to the map.
             Args:
                 kwargs: Keyword arguments to pass to the fullscreen control.
+
+            Returns:
+                ipyleaflet.FullscreenControl: Allows control of screensize.
             """
             fullscreen_control = ipyleaflet.FullScreenControl(position=position)
             self.add_control(fullscreen_control)
@@ -106,6 +112,9 @@ class Map(ipyleaflet.Map):
                 attribution (str): The attribution of the tile layer.
                 name (str, optional): The name of the tile layer. Defaults to "OpenStreetMap".
                 kwargs: Keyword arguments to pass to the tile layer.
+
+            Returns: 
+                ipyleaflet.TileLayer: Adds a new layer to the map.
             """
             tile_layer = ipyleaflet.TileLayer(url=url, attribution=attribution, name=name, **kwargs)
             self.add_layer(tile_layer)
@@ -114,6 +123,9 @@ class Map(ipyleaflet.Map):
             """Adds a basemap to the map.
             Args:
                 basemap (str): The name of the basemap to add.
+            
+            Returns:
+                ipyleaflet.Basemap: Changes basemap.
             """
             import xyzservices.providers as xyz
             try:
@@ -131,6 +143,9 @@ class Map(ipyleaflet.Map):
             Args:
                 data (dict): The GeoJSON data.
                 kwargs: Keyword arguments to pass to the GeoJSON layer.
+
+            Returns:
+                ipyleaflet.Geojson: Adds a GeoGSON layer to map. 
             """
             import json
 
