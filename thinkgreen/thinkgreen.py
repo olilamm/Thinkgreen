@@ -151,7 +151,6 @@ def generate_random_string(length=10, upper=False, digits=False, punctuation=Fal
     Returns:
         str: The generated string.
     """
-
     letters = string.ascii_lowercase
     if upper:
         letters += string.ascii_uppercase
