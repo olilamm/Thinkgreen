@@ -49,8 +49,8 @@ nav:
     - Changelog: changelog.md
     - Report Issues: https://github.com/olilamm/thinkgreen/issues
     - Examples: 
-            - examples/ipyleaflet.ipynb
-            - examples/intro.ipynb
-            - examples/thinkgreen.ipynb
+        - examples/ipyleaflet.ipynb
+        - examples/intro.ipynb
+        - examples/thinkgreen.ipynb
     - API Reference:
           - thinkgreen module: thinkgreen.md
