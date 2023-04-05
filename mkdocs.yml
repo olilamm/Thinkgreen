@@ -49,7 +49,7 @@ nav:
     - Changelog: changelog.md
     - Report Issues: https://github.com/olilamm/thinkgreen/issues
     - Examples: 
-        -examples/ipyleaflet.ipynb
+        -examples/C:\Users\olamm\thinkgreen\docs\examples\ipyleaflet.ipynb
         -examples/intro.ipunb
         -examples/thinkgreen.ipynb
     - API Reference:
