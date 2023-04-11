@@ -2,7 +2,7 @@
 
 import string
 import random
-import ipyleaflet
+import ipyleaflet 
 
 class Map(ipyleaflet.Map):
     
@@ -177,7 +177,7 @@ class Map(ipyleaflet.Map):
             geojson = gdf.to_json()
             self.add_geojson(geojson, name=name, **kwargs)
 
-            
+
 
 def generate_random_string(length=10, upper=False, digits=False, punctuation=False):
     """Generates a random string of a given length.
