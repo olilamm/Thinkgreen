@@ -125,14 +125,7 @@ class Map(ipyleaflet.Map):
             tile_layer = ipyleaflet.TileLayer(url=url, attribution=attribution, name=name, **kwargs)
             self.add_layer(tile_layer)
 
-        def add_basemap(self, basemap):
-
-            if basemap.lower() == "roadmap":
-                url = "http://mt0.google.com/vt/lyrs=r&hl=en&x={x}&y={y}&z={z}"
-                self.add_tile_layer(url, name=basemap, **kwargs) 
-            elif basemap.lower() == "hybrid":
-                url = "http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}"
-                self.add_tile_layer(url, name=basemap, **kwargs) 
+        def add_basemap(self, basemap): 
             """Adds a basemap to the map.
             Args:
                 basemap (str): The name of the basemap to add.
