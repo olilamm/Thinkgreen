@@ -164,18 +164,98 @@ class Map(ipyleaflet.Map):
             self.add_layer(geojson)
         
         def add_shp(self, data, name='Shapefile', **kwargs):
-            """Adds a ShapeFile layer to the map.
+            """Adds a Shapefile layer to the map.
+
             Args:
                 data (str): The path to the Shapefile.
-                kwargs: Keyword arguments to pass to the GeoJSON layer.
-
+            
             Returns:
-                ipyleaflet.Shp: Adds a ShapeFile layer to map. 
+                ipyleaflet.ShapeFile: Adds a shapefile to map.
             """
             import geopandas as gpd
             gdf = gpd.read_file(data)
-            geojson = gdf.to_json()
+            geojson = gdf.__geo_interface__
             self.add_geojson(geojson, name=name, **kwargs)
+
+        def add_vector(
+            self,
+            filename,
+            layer_name="Untitled",
+            bbox=None,
+            mask=None,
+            rows=None,
+            style={},
+            hover_style={},
+            style_callback=None,
+            fill_colors=["black"],
+            info_mode="on_hover",
+            encoding="utf-8",
+            **kwargs,
+        ):
+            """Adds any geopandas-supported vector dataset to the map.
+
+            Args:
+                filename (str): Either the absolute or relative path to the file or URL to be opened, or any object with a read() method (such as an open file or StringIO).
+                layer_name (str, optional): The layer name to use. Defaults to "Untitled".
+                bbox (tuple | GeoDataFrame or GeoSeries | shapely Geometry, optional): Filter features by given bounding box, GeoSeries, GeoDataFrame or a shapely geometry. CRS mis-matches are resolved if given a GeoSeries or GeoDataFrame. Cannot be used with mask. Defaults to None.
+                mask (dict | GeoDataFrame or GeoSeries | shapely Geometry, optional): Filter for features that intersect with the given dict-like geojson geometry, GeoSeries, GeoDataFrame or shapely geometry. CRS mis-matches are resolved if given a GeoSeries or GeoDataFrame. Cannot be used with bbox. Defaults to None.
+                rows (int or slice, optional): Load in specific rows by passing an integer (first n rows) or a slice() object.. Defaults to None.
+                style (dict, optional): A dictionary specifying the style to be used. Defaults to {}.
+                hover_style (dict, optional): Hover style dictionary. Defaults to {}.
+                style_callback (function, optional): Styling function that is called for each feature, and should return the feature style. This styling function takes the feature as argument. Defaults to None.
+                fill_colors (list, optional): The random colors to use for filling polygons. Defaults to ["black"].
+                info_mode (str, optional): Displays the attributes by either on_hover or on_click. Any value other than "on_hover" or "on_click" will be treated as None. Defaults to "on_hover".
+                encoding (str, optional): The encoding to use to read the file. Defaults to "utf-8".
+
+            """
+            if not filename.startswith("http"):
+                filename = os.path.abspath(filename)
+            else:
+                filename = github_raw_url(filename)
+            ext = os.path.splitext(filename)[1].lower()
+            if ext == ".shp":
+                self.add_shp(
+                    filename,
+                    layer_name,
+                    style,
+                    hover_style,
+                    style_callback,
+                    fill_colors,
+                    info_mode,
+                    encoding,
+                )
+            elif ext in [".json", ".geojson"]:
+                self.add_geojson(
+                    filename,
+                    layer_name,
+                    style,
+                    hover_style,
+                    style_callback,
+                    fill_colors,
+                    info_mode,
+                    encoding,
+                )
+            else:
+                geojson = vector_to_geojson(
+                    filename,
+                    bbox=bbox,
+                    mask=mask,
+                    rows=rows,
+                    epsg="4326",
+                    **kwargs,
+                )
+
+                self.add_geojson(
+                    geojson,
+                    layer_name,
+                    style,
+                    hover_style,
+                    style_callback,
+                    fill_colors,
+                    info_mode,
+                    encoding,
+                )
+
 
 
 
