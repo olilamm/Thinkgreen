@@ -154,7 +154,8 @@ class Map(ipyleaflet.Map):
                 ipyleaflet.Geojson: Adds a GeoJSON layer to map. 
             """
             import json
-
+            
+            #for file paths:
             if isinstance(data, str):
                 with open(data, "r") as f:
                     data = json.load(f)
@@ -162,7 +163,21 @@ class Map(ipyleaflet.Map):
             geojson = ipyleaflet.GeoJSON(data=data, **kwargs)
             self.add_layer(geojson)
         
-        #def add_shp(self, data, name='Shapefile', **kwargs)
+        def add_shp(self, data, name='Shapefile', **kwargs):
+            """Adds a ShapeFile layer to the map.
+            Args:
+                data (str): The path to the Shapefile.
+                kwargs: Keyword arguments to pass to the GeoJSON layer.
+
+            Returns:
+                ipyleaflet.Shp: Adds a ShapeFile layer to map. 
+            """
+            import geopandas as gpd
+            gdf = gpd.read_file(data)
+            geojson = gdf.to_json()
+            self.add_geojson(geojson, name=name, **kwargs)
+
+            
 
 def generate_random_string(length=10, upper=False, digits=False, punctuation=False):
     """Generates a random string of a given length.
