@@ -205,8 +205,7 @@ class Map(ipyleaflet.Map):
                 style_callback (function, optional): Styling function that is called for each feature, and should return the feature style. This styling function takes the feature as argument. Defaults to None.
                 fill_colors (list, optional): The random colors to use for filling polygons. Defaults to ["black"].
                 info_mode (str, optional): Displays the attributes by either on_hover or on_click. Any value other than "on_hover" or "on_click" will be treated as None. Defaults to "on_hover".
-                encoding (str, optional): The encoding to use to read the file. Defaults to "utf-8".
-
+                encoding (str, optional): The encoding to use to read the file. Defaults to "utf-8". 
             """
             if not filename.startswith("http"):
                 filename = os.path.abspath(filename)
