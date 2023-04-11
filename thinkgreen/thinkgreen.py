@@ -126,6 +126,13 @@ class Map(ipyleaflet.Map):
             self.add_layer(tile_layer)
 
         def add_basemap(self, basemap):
+
+            if basemap.lower() == "roadmap":
+                url = "http://mt0.google.com/vt/lyrs=r&hl=en&x={x}&y={y}&z={z}"
+                self.add_tile_layer(url, name=basemap, **kwargs) 
+            elif basemap.lower() == "hybrid":
+                url = "http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}"
+                self.add_tile_layer(url, name=basemap, **kwargs) 
             """Adds a basemap to the map.
             Args:
                 basemap (str): The name of the basemap to add.
