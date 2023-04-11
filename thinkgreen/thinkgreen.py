@@ -24,7 +24,7 @@ class Map(ipyleaflet.Map):
                 self.add_fullscreen_control()
             
             if "layers_control" not in kwargs:
-                kwargs["layers_control"] = True
+                kwargs["layers_control"] = False
             if kwargs["layers_control"]:
                 self.add_layers_control()
 
@@ -161,6 +161,8 @@ class Map(ipyleaflet.Map):
 
             geojson = ipyleaflet.GeoJSON(data=data, **kwargs)
             self.add_layer(geojson)
+        
+        #def add_shp(self, data, name='Shapefile', **kwargs)
 
 def generate_random_string(length=10, upper=False, digits=False, punctuation=False):
     """Generates a random string of a given length.
