@@ -52,5 +52,6 @@ nav:
           - examples/thinkgreen.ipynb
           - examples/intro.ipynb
           - examples/ipyleaflet.ipynb
+          - examples/folium.ipynb
     - API Reference:
           - thinkgreen module: thinkgreen.md
