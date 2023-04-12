@@ -125,23 +125,24 @@ class Map(ipyleaflet.Map):
             tile_layer = ipyleaflet.TileLayer(url=url, attribution=attribution, name=name, **kwargs)
             self.add_layer(tile_layer)
 
-        def add_basemap(self, basemap): 
-            """Adds a basemap to the map.
-            Args:
-                basemap (str): The name of the basemap to add.
-            
-            Returns:
-                ipyleaflet.Basemap: Changes basemap.
-            """
-            import xyzservices.providers as xyz
-            try:
-                layer = eval(f"xyz.{basemap}")
-                url = layer.build_url()
-                attribution = layer.attribution
-                self.add_tile_layer(url=url, attribution=attribution, name=basemap)
+        def add_basemap(self, basemap, **kwargs):
 
-            except:
-                raise ValueError(f"Invalid basemap name: {basemap}")
+            import xyzservices.providers as xyz
+
+            if basemap.lower() == "roadmap":
+                url = 'http://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}'
+                self.add_tile_layer(url, name=basemap, **kwargs)
+            elif basemap.lower() == "satellite":
+                url = 'http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}'
+                self.add_tile_layer(url, name=basemap, **kwargs)
+            else:
+                try:
+                    basemap = eval(f"xyz.{basemap}")
+                    url = basemap.build_url()
+                    attribution = basemap.attribution
+                    self.add_tile_layer(url, name=basemap.name, attribution=attribution, **kwargs)
+                except:
+                    raise ValueError(f"Basemap '{basemap}' not found.")
         
 
         def add_geojson(self, data, **kwargs):
