@@ -55,3 +55,4 @@ nav:
           - examples/folium.ipynb
     - API Reference:
           - thinkgreen module: thinkgreen.md
+          - thinkgreen module: foliumap.md
