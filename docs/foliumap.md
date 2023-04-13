@@ -1,4 +1,4 @@
  
 # folium module
 
-::: thinkgreen.folium
+::: thinkgreen.foliumap
