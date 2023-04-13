@@ -1,4 +1,4 @@
-import folium 
+import folium  
 
 class Map(folium.Map):
 
