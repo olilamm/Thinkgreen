@@ -189,6 +189,31 @@ class Map(ipyleaflet.Map):
             Returns:
                 ipyleaflet.Raster: Adds a raster layer to map.
             """
+             titiler_endpoint = "https://titiler.xyz"
+
+            r = httpx.get(
+                f"{titiler_endpoint}/cog/info",
+                params = {
+                    "url": url,
+                }
+            ).json()
+
+            bounds = r["bounds"]
+
+            r = httpx.get(
+                f"{titiler_endpoint}/cog/tilejson.json",
+                params = {
+                    "url": url,
+                }
+            ).json()
+
+            tile = r["tiles"][0]
+
+            self.add_tile_layer(url=tile, name=name, **kwargs)
+
+            if fit_bounds:
+                bbox = [[bounds[1], bounds[0]], [bounds[3], bounds[2]]]
+                self.fit_bounds(bbox)
 
         def add_vector(
             self,
