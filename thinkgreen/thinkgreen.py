@@ -197,7 +197,7 @@ class Map(ipyleaflet.Map):
                     "url": url,
                 }
             ).json()
-
+            
             bounds = r["bounds"]
 
             r = httpx.get(
