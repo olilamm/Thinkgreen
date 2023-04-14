@@ -4,3 +4,4 @@ geopandas
 branca
 jinja2
 requests
+httpx
