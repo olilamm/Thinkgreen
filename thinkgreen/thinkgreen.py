@@ -178,6 +178,18 @@ class Map(ipyleaflet.Map):
             geojson = gdf.__geo_interface__
             self.add_geojson(geojson, name=name, **kwargs)
 
+        def add_raster(self, url, name='Raster', fit_bounds=True, **kwargs):
+             """Adds a Raster layer to the map.
+
+            Args:
+                url (str): The URL of the raster layer.
+                name (str): The name of the raster layer. Defaults to the name of 'Raster'
+                fit_bounds(bool): Fits the raster layer to the bounds of the map. Defaulted to True.
+            
+            Returns:
+                ipyleaflet.Raster: Adds a raster layer to map.
+            """
+
         def add_vector(
             self,
             filename,
