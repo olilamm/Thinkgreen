@@ -179,17 +179,16 @@ class Map(ipyleaflet.Map):
             self.add_geojson(geojson, name=name, **kwargs)
 
         def add_raster(self, url, name='Raster', fit_bounds=True, **kwargs):
-             """Adds a Raster layer to the map.
+            """Adds a raster layer to the map.
 
             Args:
                 url (str): The URL of the raster layer.
-                name (str): The name of the raster layer. Defaults to the name of 'Raster'
-                fit_bounds(bool): Fits the raster layer to the bounds of the map. Defaulted to True.
-            
-            Returns:
-                ipyleaflet.Raster: Adds a raster layer to map.
+                name (str, optional): The name of the raster layer. Defaults to 'Raster'.
+                fit_bounds (bool, optional): Whether to fit the map bounds to the raster layer. Defaults to True.
             """
-             titiler_endpoint = "https://titiler.xyz"
+            import httpx
+
+            titiler_endpoint = "https://titiler.xyz"
 
             r = httpx.get(
                 f"{titiler_endpoint}/cog/info",
@@ -197,7 +196,7 @@ class Map(ipyleaflet.Map):
                     "url": url,
                 }
             ).json()
-            
+
             bounds = r["bounds"]
 
             r = httpx.get(
@@ -214,6 +213,7 @@ class Map(ipyleaflet.Map):
             if fit_bounds:
                 bbox = [[bounds[1], bounds[0]], [bounds[3], bounds[2]]]
                 self.fit_bounds(bbox)
+
 
         def add_vector(
             self,
