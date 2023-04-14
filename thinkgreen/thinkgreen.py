@@ -186,7 +186,7 @@ class Map(ipyleaflet.Map):
                 name (str, optional): The name of the raster layer. Defaults to 'Raster'.
                 fit_bounds (bool, optional): Whether to fit the map bounds to the raster layer. Defaults to True.
             """
-            import httpx 
+            import httpx
 
             titiler_endpoint = "https://titiler.xyz"
 
