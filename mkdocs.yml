@@ -57,4 +57,3 @@ nav:
     - API Reference:
           - thinkgreen module: thinkgreen.md
           - foliumap module: foliumap.md
-          - raster module: rastermap.md

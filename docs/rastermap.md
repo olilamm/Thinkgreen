@@ -1,4 +1,0 @@
- 
-# raster module
-
-::: thinkgreen.rastermap
