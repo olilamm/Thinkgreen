@@ -1,4 +1,4 @@
 
-# Raster module
+# raster module
 
 ::: thinkgreen.Rastermap
