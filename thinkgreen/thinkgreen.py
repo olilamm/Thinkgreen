@@ -218,7 +218,7 @@ class Map(ipyleaflet.Map):
                 self.fit_bounds(bbox)
         
         def add_image(self, image_path, coordinates, size=None, **kwargs):
-            """
+            """Add a static image to the map at the specified coordinates.
             Args:
                 image_path (str): The path to the image file.
                 coordinates (tuple[float, float]): The latitude and longitude coordinates to place the image at.
