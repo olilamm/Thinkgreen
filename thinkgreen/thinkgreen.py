@@ -217,27 +217,29 @@ class Map(ipyleaflet.Map):
                 bbox = [[bounds[1], bounds[0]], [bounds[3], bounds[2]]]
                 self.fit_bounds(bbox)
         
-        def add_image(self, image_path, image, **kwargs):
-            """ Add a static image to the map at the specified coordinates.
-
+        def add_image(self, path, w=250, h=250):
+            """Adds a small image (like your logo) to the bottom right of the map
             Args:
-                image_path (str): The path to the image file.
-                coordinates (tuple[float, float]): The latitude and longitude coordinates to place the image at.
-                size (tuple[int, int], optional): The size of the image in pixels. Defaults to None, which will use the
-                    image's original size.
-
-            Returns:
-                None
+            file (str): the filepath of the image
+            w (int) : width of the image (defaults 250 px)
+            h (int) : height of the image (defaults 250 px)
             """
-            # Load the image from the file
-            image = load_image(image_path)  # replace with your image loading function
+            import ipywidgets as widgets
 
-            # Set the image size if specified
-            if size is not None:
-                image = resize_image(image, size)  # replace with your image resizing function
-
-            # Add the image to the map
-            self.map.add_image(image, coordinates)  # replace with your mapping library's add_image function
+            file = open(path, "rb")
+            image = file.read()
+            i = widgets.Image(
+                value=image,
+                format='png',
+                width=w,
+                height=h,
+            )
+            
+            output_widget = widgets.Output()
+            output_control = ipyleaflet.WidgetControl(widget=ouptut_widget, position='bottomright')
+            self.add_control(output_control)
+            with output_widget:
+                display(i)
 
 
 
