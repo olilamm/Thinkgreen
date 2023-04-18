@@ -5,3 +5,4 @@ branca
 jinja2
 requests
 httpx
+ipywidgets

@@ -217,8 +217,9 @@ class Map(ipyleaflet.Map):
                 bbox = [[bounds[1], bounds[0]], [bounds[3], bounds[2]]]
                 self.fit_bounds(bbox)
         
-        def add_image(self, image_path, coordinates, size=None, **kwargs):
-            """Add a static image to the map at the specified coordinates.
+        def add_image(self, image_path, image, **kwargs):
+            """ Add a static image to the map at the specified coordinates.
+
             Args:
                 image_path (str): The path to the image file.
                 coordinates (tuple[float, float]): The latitude and longitude coordinates to place the image at.
@@ -226,7 +227,7 @@ class Map(ipyleaflet.Map):
                     image's original size.
 
             Returns:
-                ipyleaflet.image: Add a static image to the map at the specified coordinates.  
+                None
             """
             # Load the image from the file
             image = load_image(image_path)  # replace with your image loading function
@@ -237,6 +238,7 @@ class Map(ipyleaflet.Map):
 
             # Add the image to the map
             self.map.add_image(image, coordinates)  # replace with your mapping library's add_image function
+
 
 
 
