@@ -241,9 +241,6 @@ class Map(ipyleaflet.Map):
             with output_widget:
                 display(i)
 
-
-
-
         def add_vector(
             self,
             filename,
