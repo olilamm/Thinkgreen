@@ -1,0 +1,43 @@
+{% set name = "thinkgreen" %}
+{% set version = "0.0.3" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/thinkgreen-{{ version }}.tar.gz
+  sha256: 6564bc532cb235109e351263fc982ec53fa49b6654bb5c0ee0a74b4dff1397cb
+
+build:
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv
+  number: 0
+
+requirements:
+  host:
+    - python >=3.7
+    - pip
+  run:
+    - python >=3.7
+    - folium
+    - ipyleaflet
+    - geopandas
+
+test:
+  imports:
+    - thinkgreen
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/olilamm/thinkgreen
+  summary: python package final project
+  license: MIT
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - olilamm
