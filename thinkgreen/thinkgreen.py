@@ -135,10 +135,13 @@ class Map(ipyleaflet.Map):
             elif basemap.lower() == "satellite":
                 url = 'http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}'
                 self.add_tile_layer(url, name=basemap, **kwargs)
+            elif basemap.lower() == "terrain":
+                url = 'http://mt0.google.com/vt/lyrs=p&hl=en&x={x}&y={y}&z={z}'
+                self.add_tile_layer(url, name=basemap, **kwargs)
             else:
                 try:
                     basemap = eval(f"xyz.{basemap}")
-                    url = basemap.build_url()
+                    url = basemap.build_url() 
                     attribution = basemap.attribution
                     self.add_tile_layer(url, name=basemap.name, attribution=attribution, **kwargs)
                 except:
@@ -325,4 +328,4 @@ class Map(ipyleaflet.Map):
 
             toolbar_ctrl = ipyleaflet.WidgetControl(widget=toolbar, position=position)
 
-            self.add_control(toolbar_ctrl)
+            self.add_control(toolbar_ctrl) 
