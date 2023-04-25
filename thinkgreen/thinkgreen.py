@@ -263,12 +263,12 @@ class Map(ipyleaflet.Map):
 
         def add_toolbar(self, position="topright"):
             """Adds widgets. 
-            
+
             Args:
                 self: the map
                 position (str, optional): defaults to top right 
             """
-            import ipywidgets as widgets 
+            import ipywidgets as widgets
 
             widget_width = "250px"
             padding = "0px 0px 0px 5px"  # upper, right, bottom, left
