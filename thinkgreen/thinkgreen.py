@@ -262,7 +262,8 @@ class Map(ipyleaflet.Map):
                 print("This type of vector is not supported yet.")
 
         def add_toolbar(self, position="topright"):
-            """Adds widget. 
+            """Adds widgets. 
+            
             Args:
                 self: the map
                 position (str, optional): defaults to top right 
