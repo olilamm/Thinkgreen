@@ -258,3 +258,71 @@ class Map(ipyleaflet.Map):
             else:
                 print("This type of vector is not supported yet.")
 
+        def add_toolbar(self, position="topright"):
+            """Adds widget. 
+            Args:
+                self: the map
+                position (str, optional): defaults to top right 
+            """
+            import ipywidgets as widgets 
+
+            widget_width = "250px"
+            padding = "0px 0px 0px 5px"  # upper, right, bottom, left
+
+            toolbar_button = widgets.ToggleButton(
+                value=False,
+                tooltip="Toolbar",
+                icon="wrench",
+                layout=widgets.Layout(width="28px", height="28px", padding=padding),
+            )
+
+            close_button = widgets.ToggleButton(
+                value=False,
+                tooltip="Close the tool",
+                icon="times",
+                button_style="primary",
+                layout=widgets.Layout(height="28px", width="28px", padding=padding),
+            )
+
+            toolbar = widgets.HBox([toolbar_button])
+
+            def toolbar_click(change):
+                if change["new"]:
+                    toolbar.children = [toolbar_button, close_button]
+                else:
+                    toolbar.children = [toolbar_button]
+                    
+            toolbar_button.observe(toolbar_click, "value")
+
+            def close_click(change):
+                if change["new"]:
+                    toolbar_button.close()
+                    close_button.close()
+                    toolbar.close()
+                    
+            close_button.observe(close_click, "value")
+
+            rows = 2
+            cols = 2
+            grid = widgets.GridspecLayout(rows, cols, grid_gap="0px", layout=widgets.Layout(width="65px"))
+
+            icons = ["folder-open", "map", "bluetooth", "area-chart"]
+
+            for i in range(rows):
+                for j in range(cols):
+                    grid[i, j] = widgets.Button(description="", button_style="primary", icon=icons[i*rows+j], 
+                                                layout=widgets.Layout(width="28px", padding="0px"))
+                    
+            toolbar = widgets.VBox([toolbar_button])
+
+            def toolbar_click(change):
+                if change["new"]:
+                    toolbar.children = [widgets.HBox([close_button, toolbar_button]), grid]
+                else:
+                    toolbar.children = [toolbar_button]
+                    
+            toolbar_button.observe(toolbar_click, "value")
+
+            toolbar_ctrl = ipyleaflet.WidgetControl(widget=toolbar, position=position)
+
+            self.add_control(toolbar_ctrl)
