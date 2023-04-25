@@ -262,14 +262,9 @@ class Map(ipyleaflet.Map):
                 print("This type of vector is not supported yet.")
 
         def add_toolbar(self, position="topright"):
-            """Adds a dropdown widget to select a basemap.
-
-            Args:
-                self: The map.
-                position (str, optional): The position of the toolbar. Defaults to "topright".
-            """
-            import ipywidgets as widgets
-
+            
+            import ipywidgets as widgets 
+            
             widget_width = "250px"
             padding = "0px 0px 0px 5px"  # upper, right, bottom, left
 
@@ -288,7 +283,7 @@ class Map(ipyleaflet.Map):
                 layout=widgets.Layout(height="28px", width="28px", padding=padding),
             )
 
-            toolbar = widgets.HBox([toolbar_button, close_button])
+            toolbar = widgets.HBox([toolbar_button])
 
             def toolbar_click(change):
                 if change["new"]:
