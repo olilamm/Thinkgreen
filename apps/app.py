@@ -5,7 +5,7 @@ st.set_page_config(layout="wide")
 
 markdown = """
 Web App URL: <https://olilamm-thinkgreen.streamlit.app/>
-GitHub Repository: <https://github.com/olilamm/thinkgreen-streamlit.git>
+GitHub Repository: <https://olilamm-thinkgreen.streamlit.app/>
 """
 
 st.sidebar.title("About")
