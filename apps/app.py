@@ -3,10 +3,9 @@ import leafmap.foliumap as leafmap
 
 st.set_page_config(layout="wide")
 
-# Customize the sidebar
 markdown = """
 Web App URL: <https://olilamm-thinkgreen.streamlit.app/>
-GitHub Repository: <https://github.com/olilamm/thinkgreen.git>
+GitHub Repository: <https://github.com/olilamm/thinkgreen-streamlit.git>
 """
 
 st.sidebar.title("About")
@@ -14,18 +13,41 @@ st.sidebar.info(markdown)
 logo = "https://i.imgur.com/UbOXYAU.png"
 st.sidebar.image(logo)
 
-# Customize page title
-st.title("Streamlit for Thinkgreen")
 
+st.title("Searching Basemaps")
 st.markdown(
     """
-    This multipage app template demonstrates various interactive web apps created using [streamlit](https://streamlit.io) and [leafmap](https://leafmap.org). It is an open-source project as well as a chance for me to practice building geospatial packages. You are very welcome to contribute to the [GitHub repository](https://github.com/olilamm/thinkgreen.git).
-    """
+This app is a demonstration of searching and loading basemaps from [xyzservices](https://github.com/geopandas/xyzservices) and [Quick Map Services (QMS)](https://github.com/nextgis/quickmapservices). Selecting from 1000+ basemaps with a few clicks.  
+"""
 )
 
+with st.expander("See demo"):
+    st.image("https://i.imgur.com/0SkUhZh.gif")
 
-st.markdown(markdown)
+row1_col1, row1_col2 = st.columns([3, 1])
+width = None
+height = 800
+tiles = None
 
-m = leafmap.Map(minimap_control=True)
-m.add_basemap("OpenTopoMap")
-m.to_streamlit(height=500)
+with row1_col2:
+
+    checkbox = st.checkbox("Search Quick Map Services (QMS)")
+    keyword = st.text_input("Enter a keyword to search and press Enter:")
+    empty = st.empty()
+
+    if keyword:
+        options = leafmap.search_xyz_services(keyword=keyword)
+        if checkbox:
+            options = options + leafmap.search_qms(keyword=keyword)
+
+        tiles = empty.multiselect("Select XYZ tiles to add to the map:", options)
+
+    with row1_col1:
+        m = leafmap.Map()
+
+        if tiles is not None:
+            for tile in tiles:
+                m.add_xyz_service(tile)
+
+        m.to_streamlit(width, height)
+
