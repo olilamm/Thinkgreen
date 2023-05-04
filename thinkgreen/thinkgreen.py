@@ -287,3 +287,34 @@ class Map(ipyleaflet.Map):
 
                     if b.icon == 'map':
                         self.add_control(basemap_ctrl)
+
+        def add_chart(chart_type):
+            """
+            Generates a function to add a pie, bar, or line chart to a map.
+
+            Args:
+                chart_type (str): Type of chart to add. Can be 'pie', 'bar', or 'line'.
+
+            Returns:
+                Function that takes a folium.Map object and chart data as input, and adds
+                the specified type of chart to the map.
+            """
+            import folium 
+            from folium import plugins 
+            
+            if chart_type == 'pie':
+                def add_pie_chart(map_obj, data):
+                    chart = plugins.PieChart(data=data, position='bottomright')
+                    chart.add_to(map_obj)
+            elif chart_type == 'bar':
+                def add_bar_chart(map_obj, data):
+                    chart = plugins.BarChart(data=data, position='bottomright')
+                    chart.add_to(map_obj)
+            elif chart_type == 'line':
+                def add_line_chart(map_obj, data):
+                    chart = plugins.TimeSliderChoropleth(data=data, position='bottomright')
+                    chart.add_to(map_obj)
+            else:
+                raise ValueError('Invalid chart type. Must be "pie", "bar", or "line".')
+
+            return eval(f"add_{chart_type}_chart")
