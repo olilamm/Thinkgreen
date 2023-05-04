@@ -299,22 +299,30 @@ class Map(ipyleaflet.Map):
                 Function that takes a folium.Map object and chart data as input, and adds
                 the specified type of chart to the map.
             """
-            import folium 
-            from folium import plugins 
-            
-            if chart_type == 'pie':
-                def add_pie_chart(map_obj, data):
-                    chart = plugins.PieChart(data=data, position='bottomright')
-                    chart.add_to(map_obj)
-            elif chart_type == 'bar':
-                def add_bar_chart(map_obj, data):
-                    chart = plugins.BarChart(data=data, position='bottomright')
-                    chart.add_to(map_obj)
-            elif chart_type == 'line':
-                def add_line_chart(map_obj, data):
-                    chart = plugins.TimeSliderChoropleth(data=data, position='bottomright')
-                    chart.add_to(map_obj)
-            else:
-                raise ValueError('Invalid chart type. Must be "pie", "bar", or "line".')
+            import ipywidgets as widgets 
 
-            return eval(f"add_{chart_type}_chart")
+            chart_type = widgets.Dropdown(
+            options=['PIE', 'BAR', 'LINE', 'SERIAL'],
+            value=None,
+            description='Chart:',
+            style={'description_width': 'initial'},
+            layout=widgets.Layout(width='250px')
+            )
+
+            for chart in chart_type:
+                if chart_type == 'pie':
+                    def add_pie_chart(map_obj, data):
+                        chart = plugins.PieChart(data=data, position='bottomright')
+                        chart.add_to(map_obj)
+                elif chart_type == 'bar':
+                    def add_bar_chart(map_obj, data):
+                        chart = plugins.BarChart(data=data, position='bottomright')
+                        chart.add_to(map_obj)
+                elif chart_type == 'line':
+                    def add_line_chart(map_obj, data):
+                        chart = plugins.TimeSliderChoropleth(data=data, position='bottomright')
+                        chart.add_to(map_obj)
+                else:
+                    raise ValueError('Invalid chart type. Must be "pie", "bar", or "line".')
+
+                return eval(f"add_{chart_type}_chart")
