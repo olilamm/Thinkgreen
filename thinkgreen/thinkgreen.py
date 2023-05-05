@@ -5,6 +5,7 @@ import random
 import ipyleaflet 
 import streamlit 
 import numpy
+import matplotlib.pyplot 
 
 class Map(ipyleaflet.Map):
     
@@ -294,6 +295,7 @@ class Map(ipyleaflet.Map):
             import streamlit as st
             import ipywidgets as widgets
             import numpy as np
+            import matplotlib.pyplot as plt
 
             chart_type = widgets.Dropdown(
                 options=['BAR','LINE','AREA'],
@@ -311,12 +313,16 @@ class Map(ipyleaflet.Map):
             
             chart_type.observe(change_chart, names='value')
 
+            file = st.file_uploader("Upload CSV", type="csv")
+            if file is not None:
+                data = pd.read_csv(file)
+
             if chart_type.value == 'BAR':
-                st.bar_chart(np.random.rand(10, 3))
+                st.bar_chart(data)
             elif chart_type.value == "LINE":
-                st.line_chart(np.random.rand(10, 3))
+                st.line_chart(data)
             elif chart_type.value == "AREA":
-                st.area_chart(np.random.rand(10, 3))
+                st.area_chart(data)
 
             def chart_click(c):
                 with c:
