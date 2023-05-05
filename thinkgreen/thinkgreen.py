@@ -291,14 +291,69 @@ class Map(ipyleaflet.Map):
                     if b.icon == 'map':
                         self.add_control(basemap_ctrl)
 
+        def add_plot(self, x, y, **kwargs):
+            import matplotlib.pyplot as plt
+            import numpy as np
+
+            plt.style.use('_mpl-gallery')
+
+            # make data
+            x = np.linspace(0, 10, 100)
+            y = 4 + 2 * np.sin(2 * x)
+
+            # plot
+            fig, ax = plt.subplots()
+
+            ax.plot(x, y, linewidth=2.0)
+
+            ax.set(xlabel='x', ylabel='y', title='Plot')
+
+            plt.show()
+
+        def add_bar(self, x, y, **kwargs):
+            import matplotlib.pyplot as plt
+            import numpy as np
+            plt.style.use('_mpl-gallery')
+
+            # make data:
+            np.random.seed(3)
+            x = 0.5 + np.arange(8)
+            y = np.random.uniform(2, 7, len(x))
+
+            # plot
+            fig, ax = plt.subplots()
+
+            ax.bar(x, y, width=1, edgecolor="white", linewidth=0.7)
+
+            ax.set(xlabel='x', ylabel='y', title='Bar Graph')
+
+            plt.show()
+
+        def add_pie(self, x, **kwargs):
+            import matplotlib.pyplot as plt
+            import numpy as np
+
+            plt.style.use('_mpl-gallery-nogrid')
+
+            # make data
+            x = [1, 2, 3, 4]
+            colors = plt.get_cmap('Blues')(np.linspace(0.2, 0.7, len(x)))
+
+            # plot
+            fig, ax = plt.subplots()
+            ax.pie(x, colors=colors, radius=3, center=(4, 4),
+                wedgeprops={"linewidth": 1, "edgecolor": "white"}, frame=True)
+
+            ax.set(xlabel= 'x', title = 'Pie Chart')
+
+            plt.show()
+
         def add_chart(self, position="bottomleft"):
             import streamlit as st
             import ipywidgets as widgets
-            import numpy as np
-            import matplotlib.pyplot as plt
 
             chart_type = widgets.Dropdown(
-                options=['BAR','LINE','AREA'],
+                options=['PLOT','BAR','PIE'],
                 value=None,
                 description='Chart:',
                 style={'description_width': 'initial'},
@@ -309,22 +364,10 @@ class Map(ipyleaflet.Map):
             self.add_control(chart_ctrl)
             def change_chart(change):
                 if change['new']:
-                    self.add_chart(chart.value)
+                    self.add_chart_type(chart.value)
             
             chart_type.observe(change_chart, names='value')
-
-            file = st.file_uploader("Upload CSV", type="csv")
-            if file is not None:
-                data = pd.read_csv(file)
-            
-
-            if chart_type.value == 'BAR':
-                st.bar_chart(data)
-            elif chart_type.value == "LINE":
-                st.line_chart(data)
-            elif chart_type.value == "AREA":
-                st.area_chart(data)
-
+        
             def chart_click(c):
                 with c:
                     c.clear_output()
