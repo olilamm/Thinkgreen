@@ -4,8 +4,8 @@ import leafmap.foliumap as leafmap
 st.set_page_config(layout="wide")
 
 markdown = """
-Web App URL: <https://olilamm-thinkgreen.streamlit.app/>
-GitHub Repository: <https://olilamm-thinkgreen.streamlit.app/>
+Web App URL: <https://geotemplate.streamlit.app>
+GitHub Repository: <https://github.com/giswqs/streamlit-multipage-template>
 """
 
 st.sidebar.title("About")
