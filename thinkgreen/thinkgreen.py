@@ -316,6 +316,7 @@ class Map(ipyleaflet.Map):
             file = st.file_uploader("Upload CSV", type="csv")
             if file is not None:
                 data = pd.read_csv(file)
+            
 
             if chart_type.value == 'BAR':
                 st.bar_chart(data)
