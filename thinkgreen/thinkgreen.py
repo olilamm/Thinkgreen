@@ -3,6 +3,8 @@
 import string
 import random
 import ipyleaflet 
+import streamlit 
+import numpy
 
 class Map(ipyleaflet.Map):
     
@@ -273,7 +275,7 @@ class Map(ipyleaflet.Map):
             layout=widgets.Layout(width='250px')
             )
 
-            basemap_ctrl = ipyleaflet.WidgetControl(widget=basemap, position='bottomright')
+            basemap_ctrl = ipyleaflet.WidgetControl(widget=basemap, position='topright')
             self.add_control(basemap_ctrl)
             def change_basemap(change):
                 if change['new']:
@@ -288,41 +290,43 @@ class Map(ipyleaflet.Map):
                     if b.icon == 'map':
                         self.add_control(basemap_ctrl)
 
-        def add_chart(chart_type):
-            """
-            Generates a function to add a pie, bar, or line chart to a map.
-
-            Args:
-                chart_type (str): Type of chart to add. Can be 'pie', 'bar', or 'line'.
-
-            Returns:
-                Function that takes a folium.Map object and chart data as input, and adds
-                the specified type of chart to the map.
-            """
-            import ipywidgets as widgets 
+        def add_chart(self, position="bottomleft"):
+            import streamlit as st
+            import ipywidgets as widgets
+            import numpy as np
 
             chart_type = widgets.Dropdown(
-            options=['PIE', 'BAR', 'LINE', 'SERIAL'],
-            value=None,
-            description='Chart:',
-            style={'description_width': 'initial'},
-            layout=widgets.Layout(width='250px')
+                options=['BAR','LINE','AREA'],
+                value=None,
+                description='Chart:',
+                style={'description_width': 'initial'},
+                layout=widgets.Layout(width='250px')
             )
 
-            for chart in chart_type:
-                if chart_type == 'pie':
-                    def add_pie_chart(map_obj, data):
-                        chart = plugins.PieChart(data=data, position='bottomright')
-                        chart.add_to(map_obj)
-                elif chart_type == 'bar':
-                    def add_bar_chart(map_obj, data):
-                        chart = plugins.BarChart(data=data, position='bottomright')
-                        chart.add_to(map_obj)
-                elif chart_type == 'line':
-                    def add_line_chart(map_obj, data):
-                        chart = plugins.TimeSliderChoropleth(data=data, position='bottomright')
-                        chart.add_to(map_obj)
-                else:
-                    raise ValueError('Invalid chart type. Must be "pie", "bar", or "line".')
+            chart_ctrl = ipyleaflet.WidgetControl(widget=chart_type, position='bottomright')
+            self.add_control(chart_ctrl)
+            def change_chart(change):
+                if change['new']:
+                    self.add_chart(chart.value)
+            
+            chart_type.observe(change_chart, names='value')
 
-                return eval(f"add_{chart_type}_chart")
+            if chart_type.value == 'BAR':
+                st.bar_chart(np.random.rand(10, 3))
+            elif chart_type.value == "LINE":
+                st.line_chart(np.random.rand(10, 3))
+            elif chart_type.value == "AREA":
+                st.area_chart(np.random.rand(10, 3))
+
+            def chart_click(c):
+                with c:
+                    c.clear_output()
+
+                    if c.icon == 'map':
+                        self.add_control(chart_type)
+
+
+
+
+
+
