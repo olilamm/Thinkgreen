@@ -5,7 +5,8 @@ import random
 import ipyleaflet 
 import streamlit 
 import numpy
-import matplotlib.pyplot 
+import matplotlib.pyplot
+import ipywidgets as widgets
 
 class Map(ipyleaflet.Map):
     
@@ -291,66 +292,59 @@ class Map(ipyleaflet.Map):
                     if b.icon == 'map':
                         self.add_control(basemap_ctrl)
 
-        def add_plot(self, x, y, **kwargs):
+        def add_plot(self, x, y):
+
             import matplotlib.pyplot as plt
             import numpy as np
 
             plt.style.use('_mpl-gallery')
 
-            # make data
-            x = np.linspace(0, 10, 100)
-            y = 4 + 2 * np.sin(2 * x)
-
             # plot
             fig, ax = plt.subplots()
-
             ax.plot(x, y, linewidth=2.0)
-
             ax.set(xlabel='x', ylabel='y', title='Plot')
 
             plt.show()
 
-        def add_bar(self, x, y, **kwargs):
+        def add_bar(self, x, y):
             import matplotlib.pyplot as plt
             import numpy as np
-            plt.style.use('_mpl-gallery')
 
-            # make data:
-            np.random.seed(3)
-            x = 0.5 + np.arange(8)
-            y = np.random.uniform(2, 7, len(x))
+            plt.style.use('_mpl-gallery')
 
             # plot
             fig, ax = plt.subplots()
-
             ax.bar(x, y, width=1, edgecolor="white", linewidth=0.7)
-
             ax.set(xlabel='x', ylabel='y', title='Bar Graph')
 
             plt.show()
 
-        def add_pie(self, x, **kwargs):
+        def add_pie(self, x):
             import matplotlib.pyplot as plt
             import numpy as np
 
             plt.style.use('_mpl-gallery-nogrid')
 
-            # make data
-            x = [1, 2, 3, 4]
-            colors = plt.get_cmap('Blues')(np.linspace(0.2, 0.7, len(x)))
-
             # plot
             fig, ax = plt.subplots()
-            ax.pie(x, colors=colors, radius=3, center=(4, 4),
-                wedgeprops={"linewidth": 1, "edgecolor": "white"}, frame=True)
-
-            ax.set(xlabel= 'x', title = 'Pie Chart')
+            ax.pie(x, radius=3, wedgeprops={"linewidth": 1, "edgecolor": "white"}, frame=True)
+            ax.set(xlabel='x', title='Pie Chart')
 
             plt.show()
 
-        def add_chart(self, position="bottomleft"):
+
+        def add_chart(self, content, position="bottomleft", **kwargs):
+            """Add a figure to the map.
+
+            Args:
+                content (str | ipywidgets.Widget | object): The chart to add.
+                position (str, optional): The position of the widget. Defaults to "bottomright".
+                **kwargs: Other keyword arguments for ipywidgets.HTML().
+            """
             import streamlit as st
             import ipywidgets as widgets
+
+            allowed_positions = ["topleft", "topright", "bottomleft", "bottomright"]
 
             chart_type = widgets.Dropdown(
                 options=['PLOT','BAR','PIE'],
@@ -374,6 +368,42 @@ class Map(ipyleaflet.Map):
 
                     if c.icon == 'map':
                         self.add_control(chart_type)
+
+
+            if chart_type.value()
+
+
+
+
+        def add_widget(self, content, position="bottomright", **kwargs):
+            """Add a widget (e.g., text, HTML, figure) to the map.
+
+            Args:
+                content (str | ipywidgets.Widget | object): The widget to add.
+                position (str, optional): The position of the widget. Defaults to "bottomright".
+                **kwargs: Other keyword arguments for ipywidgets.HTML().
+            """
+
+            allowed_positions = ["topleft", "topright", "bottomleft", "bottomright"]
+
+            if position not in allowed_positions:
+                raise Exception(f"position must be one of {allowed_positions}")
+
+            if "layout" not in kwargs:
+                kwargs["layout"] = widgets.Layout(padding="0px 4px 0px 4px")
+            try:
+                if isinstance(content, str):
+                    widget = widgets.HTML(value=content, **kwargs)
+                    control = ipyleaflet.WidgetControl(widget=widget, position=position)
+                else:
+                    output = widgets.Output(**kwargs)
+                    with output:
+                        display(content)
+                    control = ipyleaflet.WidgetControl(widget=output, position=position)
+                self.add(control)
+
+            except Exception as e:
+                raise Exception(f"Error adding widget: {e}")
 
 
 
