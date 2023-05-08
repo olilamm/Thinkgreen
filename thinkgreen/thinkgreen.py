@@ -346,6 +346,9 @@ class Map(ipyleaflet.Map):
 
             allowed_positions = ["topleft", "topright", "bottomleft", "bottomright"]
 
+            if position not in allowed_positions:
+                raise Exception(f"position must be one of {allowed_positions}")
+
             chart_type = widgets.Dropdown(
                 options=['PLOT','BAR','PIE'],
                 value=None,
@@ -354,23 +357,16 @@ class Map(ipyleaflet.Map):
                 layout=widgets.Layout(width='250px')
             )
 
-            chart_ctrl = ipyleaflet.WidgetControl(widget=chart_type, position='bottomright')
+            chart_ctrl = ipyleaflet.WidgetControl(widget=chart_type, position=position)
             self.add_control(chart_ctrl)
+
             def change_chart(change):
                 if change['new']:
-                    self.add_chart_type(chart.value)
-            
+                    selected_option = chart_type.value
+                    self.add_widget(selected_option, position=position)
+
             chart_type.observe(change_chart, names='value')
-        
-            def chart_click(c):
-                with c:
-                    c.clear_output()
 
-                    if c.icon == 'map':
-                        self.add_control(chart_type)
-
-
-            if chart_type.value()
 
 
 
@@ -404,6 +400,7 @@ class Map(ipyleaflet.Map):
 
             except Exception as e:
                 raise Exception(f"Error adding widget: {e}")
+
 
 
 
