@@ -333,7 +333,7 @@ class Map(ipyleaflet.Map):
             plt.show()
 
 
-        def add_chart(self, content, position="bottomleft", **kwargs):
+        def add_chart(self, position="bottomleft", **kwargs):
             """Add a figure to the map.
 
             Args:
@@ -359,11 +359,29 @@ class Map(ipyleaflet.Map):
 
             chart_ctrl = ipyleaflet.WidgetControl(widget=chart_type, position=position)
             self.add_control(chart_ctrl)
+            def change_chart(change):
+                if change['new']:
+                    self.add_chart(chart_type.value)
+
+            output_control_plot = ipyleaflet.WidgetControl(position="bottomleft")
+            output_control_bar = ipyleaflet.WidgetControl(position="bottomleft")
+            output_control_pie = ipyleaflet.WidgetControl(position="bottomleft")
 
             def change_chart(change):
                 if change['new']:
                     selected_option = chart_type.value
-                    self.add_widget(selected_option, position=position)
+                if selected_option == 'PLOT':
+                    output_control = ipyleaflet.WidgetControl(widget=create_plot(), position="bottomleft")
+                elif selected_option == 'BAR':
+                    # Create a bar chart widget using a plotting library of your choice
+                    output_control = ipyleaflet.WidgetControl(widget=create_bar_chart(), position="bottomleft")
+                elif selected_option == 'PIE':
+                    # Create a pie chart widget using a plotting library of your choice
+                    output_control = ipyleaflet.WidgetControl(widget=create_pie_chart(), position="bottomleft")
+                else:
+                    # No option selected
+                    pass
+                self.add_control(output_control)
 
             chart_type.observe(change_chart, names='value')
 
