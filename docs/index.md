@@ -16,7 +16,7 @@ My package, Thinkgreen, was designed to show off the many skills and techniques 
 -   GitHub repo: https://github.com/olilamm/thinkgreen  
 -   Documentation: https://olilamm.github.io/thinkgreen 
 -   PyPi: https://pypi.org/project/thinkgreen 
--   Thinkgreen tutorial on YouTube: 
+-   Thinkgreen tutorial on YouTube: https://youtu.be/YTDpRf26bDs 
 -   Free software: MIT license 
     
 
