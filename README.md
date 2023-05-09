@@ -5,7 +5,7 @@
 [![image](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/olilamm/thinkgreen/blob/main/docs/examples/thinkgreen.ipynb) 
 
 
-[![logo]("C:\Users\olamm\thinkgreen\logo\thinkgreen.png")](https://github.com/olilamm/thinkgreen/blob/main/logo/thinkgreen.png)
+[![logo]("https://i.imgur.com/lOYVXzB.png")](/https://github.com/olilamm/thinkgreen/blob/main/logo/thinkgreen.png)
 
 
 **Geography 510 Final Project**
@@ -28,7 +28,7 @@ My package, Thinkgreen, was designed to show off the many skills and techniques 
 -   Download and display OpenStreetMap data 
 -   Add functionalities such as search controls, draw controls, layer controls, and more
 -   Add images 
--   
+-   Add XYZ and vector tile services to a map
 
 ## Credits
 
