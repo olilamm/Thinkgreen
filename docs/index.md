@@ -9,9 +9,9 @@
 My package, Thinkgreen, was designed to show off the many skills and techniques that I learned over the course of my Geography 510 - Geographic Software Design course in the spring semester of 2023. The course focused on the creation and design of open-source Python packages that have capabilities for geospatial analysis and interactive mapping. In this class, I was exposed to Visual Studio Code, Google Colab, Anaconda, Streamlit, and other popular Python integrated development environment softwares (IDEs). We also learned about the inner workings of platforms like Github, which can be used to freely host our packages. This class has equipped me with the skills and knowledge to create and release my own geospatial Python packages. 
 
 
--   GitHub repo: https://github.com/olilamm/thinkgreen 
--   Documentation: https://olilamm.github.io/thinkgreen
--   PyPi: https://pypi.org/project/thinkgreen
+-   GitHub repo: https://github.com/olilamm/thinkgreen  
+-   Documentation: https://olilamm.github.io/thinkgreen 
+-   PyPi: https://pypi.org/project/thinkgreen 
 -   Thinkgreen tutorial on YouTube: 
 -   Free software: MIT license 
     
