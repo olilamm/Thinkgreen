@@ -1,8 +1,11 @@
-# thinkgreen
+# Thinkgreen
 
 
 [![image](https://img.shields.io/pypi/v/thinkgreen.svg)](https://pypi.python.org/pypi/thinkgreen)
 [![image](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/olilamm/thinkgreen/blob/main/docs/examples/thinkgreen.ipynb) 
+
+
+[![logo]("C:\Users\olamm\thinkgreen\logo\thinkgreen.png")](https://github.com/opengeos/leafmap/blob/main/logo/thinkgreen.png)
 
 
 **Geography 510 Final Project**
