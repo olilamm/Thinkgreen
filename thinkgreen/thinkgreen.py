@@ -290,7 +290,11 @@ class Map(ipyleaflet.Map):
             """
             
             import ipywidgets as widgets 
+            allowed_positions = ["topleft", "topright", "bottomleft", "bottomright"]
 
+            if position not in allowed_positions:
+                raise Exception(f"position must be one of {allowed_positions}")
+            
             basemap = widgets.Dropdown(
             options=['ROADMAP', 'SATELLITE', 'TERRAIN'],
             value=None,
