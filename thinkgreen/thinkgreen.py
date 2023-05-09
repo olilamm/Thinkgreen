@@ -98,8 +98,8 @@ class Map(ipyleaflet.Map):
             Args:
                 kwargs: Keyword arguments to pass to the layers control.
             
-            Returns: 
-                ipyleaflet.LayersControl: The layers control.
+            Returns:
+                ipyleaflet.LayersControl: The search control.   
             """
             layers_control = ipyleaflet.LayersControl(position=position)
             self.add_control(layers_control)
@@ -123,13 +123,21 @@ class Map(ipyleaflet.Map):
                 name (str, optional): The name of the tile layer. Defaults to "OpenStreetMap".
                 kwargs: Keyword arguments to pass to the tile layer.
 
-            Returns: 
+            Returns:
                 ipyleaflet.TileLayer: Adds a new layer to the map.
             """
             tile_layer = ipyleaflet.TileLayer(url=url, attribution=attribution, name=name, **kwargs)
             self.add_layer(tile_layer)
 
         def add_basemap(self, basemap, **kwargs):
+            """Adds a base layer to the map.
+
+            Args:
+                basemap (dict): The basemap layer from an xyz url.
+
+            Returns:
+                xyzservices.providers: Adds a tile layer as a basemap.
+            """
 
             import xyzservices.providers as xyz
 
@@ -227,9 +235,12 @@ class Map(ipyleaflet.Map):
         def add_image(self, path, w=250, h=250):
             """Adds a small image (like your logo) to the bottom right of the map
             Args:
-            file (str): the filepath of the image
-            w (int) : width of the image (defaults 250 px)
-            h (int) : height of the image (defaults 250 px)
+                file (str): the filepath of the image
+                w (int) : width of the image (defaults 250 px)
+                h (int) : height of the image (defaults 250 px)
+
+            Returns:
+                ipywidgets.image: Adds an image to the map. 
             """
             import ipywidgets as widgets
 
@@ -255,6 +266,9 @@ class Map(ipyleaflet.Map):
                 data: the vector data
                 name: the type of data. example: 'GeoJson', 'Shapefile', 'GeoDataFrame'
                 kwargs: Keyword arguments to pass to the layer.
+
+            Returns:
+                ipyleaflet.vector: Adds a vector layer to the map. 
             """
             if name == "GeoJson":
                 self.add_geojson(self, data, name, **kwargs)
@@ -265,7 +279,15 @@ class Map(ipyleaflet.Map):
             else:
                 print("This type of vector is not supported yet.")
 
-        def add_toolbar(self, position="topright"):
+        def add_toolbar(self, position="topright", **kwargs):
+            """Adds a toolbar using ipywidgets to change the basemap.
+
+            Args:
+                m (thinkgreen.Map, optional): The dropdown widget.
+
+            Returns:
+                ipywidgets: The tool GUI widget
+            """
             
             import ipywidgets as widgets 
 
@@ -292,7 +314,17 @@ class Map(ipyleaflet.Map):
                     if b.icon == 'map':
                         self.add_control(basemap_ctrl)
 
-        def add_plot(self, x, y):
+        def add_plot(self, x, y, **kwargs):
+            """Add a plot to the map.
+
+            Args:
+                x (str, optional): Data to use for the x-axis.
+                y (str, optional): Data to use for the y-axis.
+                **kwargs: Other keyword arguments for ipywidgets.HTML().
+
+            Returns:
+                matplotlib.plot: Generates a plot graph. 
+            """
 
             import matplotlib.pyplot as plt
             import numpy as np
@@ -307,6 +339,16 @@ class Map(ipyleaflet.Map):
             plt.show()
 
         def add_bar(self, x, y):
+            """Add a bar graph to the map.
+
+            Args:
+                x (str, optional): Data to use for the x-axis.
+                y (str, optional): Data to use for the y-axis.
+                **kwargs: Other keyword arguments for ipywidgets.HTML().
+
+            Returns:
+                matplotlib.plot: Generates a bar graph. 
+            """
             import matplotlib.pyplot as plt
             import numpy as np
 
@@ -320,6 +362,15 @@ class Map(ipyleaflet.Map):
             plt.show()
 
         def add_pie(self, x):
+            """Add a pie chart to the map.
+
+            Args:
+                x (str, optional): Data to use for the pie chart.
+                **kwargs: Other keyword arguments for ipywidgets.HTML().
+
+            Returns:
+                matplotlib.plot: Generates a pie graph. 
+            """
             import matplotlib.pyplot as plt
             import numpy as np
 
@@ -340,6 +391,9 @@ class Map(ipyleaflet.Map):
                 content (str | ipywidgets.Widget | object): The chart to add.
                 position (str, optional): The position of the widget. Defaults to "bottomright".
                 **kwargs: Other keyword arguments for ipywidgets.HTML().
+
+            Returns:
+                ipywidgets.chart: Adds a chart dropdown widget to map. 
             """
             import streamlit as st
             import ipywidgets as widgets
@@ -376,6 +430,9 @@ class Map(ipyleaflet.Map):
                 content (str | ipywidgets.Widget | object): The widget to add.
                 position (str, optional): The position of the widget. Defaults to "bottomright".
                 **kwargs: Other keyword arguments for ipywidgets.HTML().
+
+            Returns:
+                ipyleaflet.WidgetControl: Adds a widget to the map. 
             """
 
             allowed_positions = ["topleft", "topright", "bottomleft", "bottomright"]
