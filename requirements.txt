@@ -8,3 +8,5 @@ httpx
 ipywidgets
 streamlit
 numpy
+matplotlib
+matplotlib.pyplot 

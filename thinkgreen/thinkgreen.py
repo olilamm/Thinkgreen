@@ -294,7 +294,7 @@ class Map(ipyleaflet.Map):
 
         def add_plot(self, x, y):
 
-            import matplotlib as plt
+            import matplotlib.pyplot as plt
             import numpy as np
 
             plt.style.use('_mpl-gallery')
