@@ -3,7 +3,7 @@
 import string
 import random
 import ipyleaflet 
-import streamlit 
+import streamlit
 import numpy
 import matplotlib.pyplot
 import ipywidgets as widgets
@@ -366,8 +366,6 @@ class Map(ipyleaflet.Map):
                     self.add_widget(selected_option, position=position)
 
             chart_type.observe(change_chart, names='value')
-
-
 
 
 
