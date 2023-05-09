@@ -24,9 +24,46 @@ m = folium.Map(location =[36, -84], zoom_start=10)
 
 m
 ```
+## Customize base layers
 
-## Customize map controls
+```python
+m = thinkgreen.Map(center = [36, -84], zoom = 10)
+m.add_search_control(position="topright")
+m.add_layers_control()
+m.add_tile_layer(url=url, name="Google Maps", attribution="Google")
+m.add_basemap(basemap="satellite")
+
+m
+```
+
+## Customize basemaps
 
 ```python
 m = thinkgreen.Map()
+
+m.add_toolbar()
+
+m
+```
+
+## Adding different types of graphs
+
+```python
+m = thinkgreen.Map() 
+
+m.add_bar(x=[1,2,3,4], y=[1,2,3,4])
+
+m.add_pie(x=[1,2,3,4])
+
+m.add_plot(x=[1,2,3,4], y=[1,2,3,4])
+```
+
+## Add Shapefiles or GeoJSON layers
+
+```python
+m = thinkgreen.Map()
+
+m.add_shp("filename")
+
+m.add_geojson("filename")
 ```
