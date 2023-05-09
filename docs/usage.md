@@ -15,8 +15,18 @@ m = thinkgreen.Map(center = [36, -84], zoom = 10)
 
 m
 ```
+## Another way to create an interactive map
+
+```python
+import folium
+
+m = folium.Map(location =[36, -84], zoom_start=10)
+
+m
+```
 
 ## Customize map controls
 
 ```python
 m = thinkgreen.Map()
+```

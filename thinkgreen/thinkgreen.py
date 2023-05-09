@@ -5,7 +5,7 @@ import random
 import ipyleaflet 
 import streamlit
 import numpy
-import matplotlib.pyplot
+import matplotlib
 import ipywidgets as widgets
 
 class Map(ipyleaflet.Map):
