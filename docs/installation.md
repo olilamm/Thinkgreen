@@ -29,3 +29,23 @@ You can clone the public repository:
 ```
 git clone git://github.com/olilamm/thinkgreen
 ```
+
+## Upgrade thinkgreen
+
+to upgrade to the latest version of thinkgreen, you can run the following command in your terminal:
+```bash
+pip install -U thinkgreen
+```
+
+If you use conda, you can update thinkgreen to the latest version by running the following command in your terminal:
+
+```bash
+conda update -c conda-forge thinkgreen
+```
+
+To install the development version from GitHub directly within Jupyter notebook without using Git, run the following code:
+
+```python
+import thinkgreen
+thinkgreen.update_package()
+```
