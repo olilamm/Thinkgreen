@@ -487,10 +487,8 @@ class Map(ipyleaflet.Map):
             else:
                 print("Unsupported output format. Please choose either 'shapefile' or 'geojson'.")
 
-
-            # Example usage
-            add_csv('input.csv', 'output.shp', 'shapefile')
-            add_csv('input.csv', 'output.geojson', 'geojson')
+            #addcsv = ipyleaflet.addcsv(in_csv=in_csv, out_file=out_file, x=x, y=y)
+            #self.add_csv(addcsv)
 
 
 
@@ -505,14 +503,47 @@ class Map(ipyleaflet.Map):
             # Create a MarkerCluster layer
             marker_cluster = MarkerCluster(name=layer_name)
             
+            
             # Iterate over rows and add markers to the cluster
             for index, row in df.iterrows():
                 location = [row[y], row[x]]  # Swap x and y to match lat/lon
                 marker = folium.Marker(location=location, popup=row[label] if label else None)
                 marker.add_to(marker_cluster)
             
-            # Add the marker cluster layer to the map
-            marker_cluster.add_to(self.map)
+            #self.add_points_from_csv()
+
+
+        def create_marker_cluster_tool():
+            import ipywidgets as widgets
+            from IPython.display import display
+            from ipyfilechooser import FileChooser
+            
+            # Create a file chooser widget
+            file_chooser = FileChooser()
+
+            # Create a button widget
+            button = widgets.Button(description="Create Marker Cluster")
+
+            # Define a function to handle the button click event
+            def create_marker_cluster(_):
+                # Get the selected file path from the file chooser
+                file_path = file_chooser.selected
+
+                # Load and process the CSV file
+                # Replace this with your own logic
+                # For example:
+                # data = pd.read_csv(file_path)
+                # ...
+
+                # Placeholder logic to show the file path
+                print("Selected file:", file_path)
+
+            # Register the function to handle the button click event
+            button.on_click(create_marker_cluster)
+
+            # Display the widgets
+            display(file_chooser, button)
+        
 
 
 
