@@ -461,6 +461,58 @@ class Map(ipyleaflet.Map):
                 raise Exception(f"Error adding widget: {e}")
 
 
+        def add_csv(self, in_csv, out_file, out_format, x="longitude", y="latitude"):
+            import csv
+            import geopandas as gpd
+            from shapely.geometry import Point
+
+            # Read CSV file and extract lat/lon coordinates
+            points = []
+            with open(in_csv, 'r') as csv_file:
+                reader = csv.DictReader(csv_file)
+                for row in reader:
+                    lon = float(row[x])
+                    lat = float(row[y])
+                    point = Point(lon, lat)
+                    points.append(point)
+
+            # Create a GeoDataFrame from the points
+            gdf = gpd.GeoDataFrame(geometry=points)
+
+            # Save GeoDataFrame to the specified output format
+            if out_format == 'shapefile':
+                gdf.to_file(out_file, driver='ESRI Shapefile')
+            elif out_format == 'geojson':
+                gdf.to_file(out_file, driver='GeoJSON')
+            else:
+                print("Unsupported output format. Please choose either 'shapefile' or 'geojson'.")
+
+
+            # Example usage
+            add_csv('input.csv', 'output.shp', 'shapefile')
+            add_csv('input.csv', 'output.geojson', 'geojson')
+
+
+
+        def add_points_from_csv(self, in_csv, x="longitude", y="latitude", label=None, layer_name="Marker cluster"):
+
+            import pandas as pd
+            import folium
+            from folium.plugins import MarkerCluster
+            # Load CSV data into a pandas DataFrame
+            df = pd.read_csv(in_csv)
+            
+            # Create a MarkerCluster layer
+            marker_cluster = MarkerCluster(name=layer_name)
+            
+            # Iterate over rows and add markers to the cluster
+            for index, row in df.iterrows():
+                location = [row[y], row[x]]  # Swap x and y to match lat/lon
+                marker = folium.Marker(location=location, popup=row[label] if label else None)
+                marker.add_to(marker_cluster)
+            
+            # Add the marker cluster layer to the map
+            marker_cluster.add_to(self.map)
 
 
 
