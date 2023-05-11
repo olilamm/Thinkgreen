@@ -53,6 +53,7 @@ nav:
           - examples/folium.ipynb
           - examples/Raster.ipynb
           - examples/widgets.ipynb
+          - examples/FinalExam.ipynb
     - API Reference:
           - thinkgreen module: thinkgreen.md
           - foliumap module: foliumap.md
